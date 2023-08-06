@@ -6,7 +6,7 @@
     pre_build:
       commands:
         - echo Logging in to Amazon ECR...
-        - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ecr_repo_api
+        - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ecr_api_repo_url
     build:
       commands:
        - echo Build started on `date`
@@ -14,18 +14,18 @@
        - ls -l
        - echo Building the Docker image...          
        - docker build -t $ecr_repo_name -t $ecr_repo_name:$CODEBUILD_BUILD_NUMBER .
-       - docker tag $ecr_repo_name:latest $ecr_repo_api/$ecr_repo_name:latest
-       - docker tag $ecr_repo_name:latest $ecr_repo_api/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
+       - docker tag $ecr_repo_name:latest $ecr_api_repo_url:latest
+       - docker tag $ecr_repo_name:latest $ecr_api_repo_url:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push $ecr_repo_api/$ecr_repo_name:latest
-       - docker push $ecr_repo_api/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
+       - docker push $ecr_api_repo_url:latest
+       - docker push $ecr_api_repo_url:$CODEBUILD_BUILD_NUMBER
        - cd ..
-       - sed -i "s|<repo url>|$ecr_repo_api|g" docker-compose.yml
-       - sed -i "s|<repo name>|$ecr_repo_name|g" docker-compose.yml
-       - sed -i "s|<repo name ui>|$ecr_ui_repo_name|g" docker-compose.yml
+       - sed -i "s|<repo url>|$ecr_api_repo_url|g" docker-compose.yml
+      #  - sed -i "s|<repo name>|$ecr_repo_name|g" docker-compose.yml
+       - sed -i "s|<repo ui url>|$ecr_ui_repo_url|g" docker-compose.yml
        - cd proxy
        - sed -i "s|<Instance url>|$instance_url|g" nginx.yaml
  artifacts:

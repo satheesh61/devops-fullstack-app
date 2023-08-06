@@ -13,7 +13,7 @@ services:
       - 5432
   api:
     container_name: go-app-backend
-    image: <repo url>/<repo name>:latest
+    image: <repo url>:latest
     depends_on:
       - postgres
     expose:
@@ -29,7 +29,7 @@ services:
       - "postgres"
   react:
     container_name: frontent_api
-    image: <repo url>/<repo name ui>:latest
+    image: <repo ui url>:latest
     depends_on:
       - api
     expose:
