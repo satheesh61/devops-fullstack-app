@@ -4,7 +4,7 @@ files:
   -  source: /
      destination: /home/ec2-user/app
 hooks:
-  BeforeInstall:
+  Install:
     - location: deployment_scripts/stop_remove_docker_image.sh
       runas: ec2-user
   AfterInstall:
