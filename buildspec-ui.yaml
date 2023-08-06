@@ -15,12 +15,12 @@
        - ls -l
        - echo Building the Docker image...          
        - docker build -t $ecr_repo_name -t $ecr_repo_name:$CODEBUILD_BUILD_NUMBER .
-       - docker tag $ecr_repo_name:latest $ecr_repo_ui/$ecr_repo_name:latest
-       - docker tag $ecr_repo_name:$CODEBUILD_BUILD_NUMBER $ecr_repo_ui/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
+       - docker tag $ecr_repo_name:latest $ecr_repo_ui:latest
+       - docker tag $ecr_repo_name:$CODEBUILD_BUILD_NUMBER $ecr_repo_ui:$CODEBUILD_BUILD_NUMBER
     post_build:
       commands:
        - echo Build completed on `date`
        - echo Pushing the Docker image...
-       - docker push $ecr_repo_ui/$ecr_repo_name:latest
-       - docker push $ecr_repo_ui/$ecr_repo_name:$CODEBUILD_BUILD_NUMBER
+       - docker push $ecr_repo_ui:latest
+       - docker push $ecr_repo_ui:$CODEBUILD_BUILD_NUMBER
  
