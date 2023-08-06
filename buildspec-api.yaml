@@ -27,7 +27,7 @@
       #  - sed -i "s|<repo name>|$ecr_repo_name|g" docker-compose.yml
        - sed -i "s|<repo ui url>|$ecr_ui_repo_url|g" docker-compose.yml
        - cd proxy
-       - sed -i "s|<Instance url>|$instance_url|g" nginx.config
+       - sed -i "s|<Instance url>|$instance_url|g" nginx.conf
  artifacts:
    files:
      - '*'
